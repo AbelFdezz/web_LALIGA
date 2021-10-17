@@ -1,10 +1,14 @@
 let tbody = document.getElementById("tbody");
 let row = document.createElement("tr");
+
 function tableRanking() {
   for (let i = 0; i < dataClasificacion.standings[0].table.length; i++) {
+    let imagen = document.createElement("img");
+    imagen.src =dataClasificacion.standings[0].table[i].team.crestUrl;
+    
     let arr = new Array(
       dataClasificacion.standings[0].table[i].position,
-      dataClasificacion.standings[0].table[i].team.crestUrl,
+    imagen,
       dataClasificacion.standings[0].table[i].team.name,
       dataClasificacion.standings[0].table[i].playedGames,
       dataClasificacion.standings[0].table[i].won,
@@ -22,8 +26,17 @@ function tableRanking() {
       let celdas = document.createElement("td");
       row.append(celdas);
       tbody.append(row);
-      celdas.innerHTML = arr[j];
+      celdas.append(arr[j]);
     }
   }
 }
 tableRanking();
+console.log(dataClasificacion.standings[0].table)
+
+/*
+
+ `${<img src="dataClasificacion.standings[0].table[i].team.crestUrl" alt=""></img>}`,
+dataClasificacion.standings[0].table[i].team.crestUrl
+
+
+*/
