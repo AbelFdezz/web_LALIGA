@@ -46,6 +46,22 @@
     <div class="container col-lg-6 col-md-8 col-sm-12 row d-flex justify-content-center">
 
         <div class="table table-dark  table-striped  row d-flex justify-content-center border border-secondary ">
+    
+            <select name="inputEquipos" id="inputEquipos">
+              </select>
+              <input type="radio" id="radioTodos" name="partidos" value="todos"
+         checked>
+         <label for="todos">Todos</label>
+              <input type="radio" id="radioGanados" name="partidos" value="ganados">
+              <label for="ganados">Ganados</label>
+              <input type="radio" id="radioEmpatados" name="partidos" value="empatado">
+              <label for="empatados">Empatados</label>
+              <input type="radio" id="radioPerdidos" name="partidos" value="perdido">
+              <label for="perdidos">Perdidos</label>
+              <input type="radio" id="radioProximos" name="partidos" value="próximos">
+              <label for="proximos">Próximos</label>
+            <button id="boton_buscar">Buscar</button>
+
             <table>
                 <thead>
                     <tr>
@@ -58,16 +74,16 @@
                 </thead>
                 <tbody id="tbody"></tbody>
             </table>
-            </div>
         </div>
-        <script src="./clasificacion.js"></script>
-        <script src="./partidos.js"></script>
-        <script src="./Fpartidos.js"></script>
-        <script src="./stats.js"></script>
-        <script src="./statsPruebas.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-            crossorigin="anonymous"></script>
+    </div>
+    <script src="./clasificacion.js"></script>
+    <script src="./partidos.js"></script>
+    <script src="./Fpartidos.js"></script>
+    <script src="./statsPruebas.js"></script>
+    <script src="./filtros.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

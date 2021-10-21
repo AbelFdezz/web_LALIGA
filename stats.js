@@ -54,7 +54,6 @@ function stats(partidos) {
     arrEquipos[j].avg = arrEquipos[j].goles / arrEquipos[j].partidos;
   }
 
-  //console.log(arrEquipos);
 
   tablaAvg(arrEquipos);
   crearTablaAvg(arrEquipos);
@@ -103,22 +102,20 @@ function crearTablaAvg(arrEquipos3) {
     encuentros.innerHTML = arrEquipos3[i].partidos;
     golaverage.innerHTML = arrEquipos3[i].avg.toFixed(2);
   }
-
 }
 
-function tablaGoles(arrEquipos4){
+function tablaGoles(arrEquipos4) {
   arrEquipos4.sort(function (a, b) {
     if (a.golesContraV > b.golesContraV) {
       return 1;
     }
-    if (a.avg < b.avg) {
+    if (a.golesContraV < b.golesContraV) {
       return -1;
     }
     return 0;
   });
-  console.log(arrEquipos4)
 }
-function crearTablaGoles (arrEquipos5) {
+function crearTablaGoles(arrEquipos5) {
   let tbody2 = document.getElementById("tbody2");
 
   for (let i = 0; i < 5; i++) {
@@ -132,7 +129,7 @@ function crearTablaGoles (arrEquipos5) {
     let equipo2 = document.createElement("td");
     let banderaLocal2 = document.createElement("td");
     let goles2 = document.createElement("td");
-    let encuentros2= document.createElement("td");
+    let encuentros2 = document.createElement("td");
     let golaverage2 = document.createElement("td");
 
     tbody2.append(row2);
@@ -146,5 +143,4 @@ function crearTablaGoles (arrEquipos5) {
     encuentros2.innerHTML = arrEquipos5[i].partidos;
     golaverage2.innerHTML = arrEquipos5[i].golesContraV;
   }
-
 }

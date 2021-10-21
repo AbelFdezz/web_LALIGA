@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,6 +10,7 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>Rankings</title>
 </head>
+
 <body class="body row d-flex justify-content-center bg-dark">
     <nav class="navbar navbar-expand-md navbar-light bg-secondary">
         <div class="container-fluid">
@@ -44,39 +46,39 @@
     <div class="container col-lg-6 col-md-8 col-sm-12 row d-flex justify-content-center">
 
         <div class="table table-dark  table-striped  row d-flex justify-content-center border border-secondary ">
-            <p>Equipos con mejor golaverage</p>
+            <p class="text-center fs-5 ">Mejor golaverage</p>
             <table>
                 <thead>
                     <tr>
-                        <th>crest</th>
-                        <th>Equipo</th>
+                        <th></th>
+                        <th class="th">Equipo</th>
                         <th>Goles</th>
-                        <th>Encuentros</th>
+                        <th>Partidos</th>
                         <th>Golaverage</th>
                     </tr>
                 </thead>
                 <tbody id="tbody"></tbody>
             </table>
-            </div>
         </div>
 
+
         <div class="table table-dark  table-striped  row d-flex justify-content-center border border-secondary ">
-            <p>Menos encajados como visitante</p>
+            <p class="text-center fs-5">Menos encajados de visitante</p>
             <table>
                 <thead>
                     <tr>
-                        <th>crest</th>
-                        <th>Equipo</th>
+                        <th></th>
+                        <th class="th">Equipo</th>
                         <th>goles </th>
                         <th>Encuentros</th>
-                        <th>Encajados como visitante</th>
+                        <th>Encajados</th>
                     </tr>
                 </thead>
                 <tbody id="tbody2"></tbody>
             </table>
-            </div>
         </div>
-      
+
+
         <script src="./clasificacion.js"></script>
         <script src="./partidos.js"></script>
         <script src="./stats.js"></script>
@@ -84,4 +86,5 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
 </body>
+
 </html>
