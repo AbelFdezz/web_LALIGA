@@ -1,6 +1,9 @@
 function creacionTabla(partidos) {
   let tbody = document.getElementById("tbody");
   tbody.innerHTML = "";
+  if (partidos.length == 0){
+    tbody.innerHTML = ("<p>No hay partidos relacionados.</p>")
+   }else{
   for (let i = 0; i < partidos.length; i++) {
     let logosVisitante =
       "https://crests.football-data.org/" + partidos[i].awayTeam.id + ".svg";
@@ -38,13 +41,16 @@ function creacionTabla(partidos) {
     banderaLocal.innerHTML = crestLocal;
   }
 }
+}
+
 creacionTabla(dataPartidos.matches);
-let arrayMatches = dataPartidos.matches;
+let arrayMatches = dataPartidos.matches; //aquí está la clave? cambiar json por nueva fuente.
 let arrListaEquipos = arrayMatches.map(function (equipo, index) {
   return equipo.homeTeam.name;
 });
-let setEquipos = [...new Set(arrListaEquipos)];
 
+let setEquipos = [...new Set(arrListaEquipos)];
+//funcion crear el select
 function arrSelect() {
   let select = document.getElementById("inputEquipos");
   for (let l = 0; l < setEquipos.length; l++) {
@@ -63,6 +69,7 @@ let radioEmpatados = document.getElementById("radioEmpatados");
 let radioPerdidos = document.getElementById("radioPerdidos");
 let radioProximos = document.getElementById("radioProximos");
 
+//función filtro principal
 function filtroEquipos() {
   let filterMatches = [];
   for (let i = 0; i < arrayMatches.length; i++) {
@@ -88,85 +95,115 @@ function filtroEquipos() {
   } else if (document.getElementById("radioPerdidos").checked == true) {
     filtroPerdidos(filterMatches);
     return;
-   } else if (document.getElementById("radioProximos").checked == true) {
-      filtroProximos(filterMatches);
-      return;
+  } else if (document.getElementById("radioProximos").checked == true) {
+    filtroProximos(filterMatches);
+    return;
   }
   creacionTabla(filterMatches);
 }
-
+//cambiar el nombre, mendrugo
 document.getElementById("boton_buscar").addEventListener("click", function () {
   filtroEquipos();
 });
 
-//console.log(arrayMatches)
+//filtros de empatados ganados perdidos y próximos.
+
+function filtroEmpatados(filterMatches) {
+  let empatadosMatches = [];
+  for (let i = 0; i < filterMatches.length; i++) {
+    if (filterMatches[i].score.winner == "DRAW") {
+      empatadosMatches.push(filterMatches[i]);
+    }
+  }
+  creacionTabla(empatadosMatches);
+}
+
+function filtroGanados(filterMatches) {
+  let ganadosMatches = [];
+  for (let i = 0; i < filterMatches.length; i++) {
+    if (
+      filterMatches[i].score.winner == "AWAY_TEAM" &&
+      filterMatches[i].awayTeam.name ==
+        document.getElementById("inputEquipos").value
+    ) {
+      ganadosMatches.push(filterMatches[i]);
+    } else if (
+      filterMatches[i].score.winner == "HOME_TEAM" &&
+      filterMatches[i].homeTeam.name ==
+        document.getElementById("inputEquipos").value
+    ) {
+      ganadosMatches.push(filterMatches[i]);
+    }
+  }
+  console.log(ganadosMatches);
+  creacionTabla(ganadosMatches);
+}
+
+function filtroPerdidos(filterMatches) {
+  let perdidosMatches = [];
+  for (let i = 0; i < filterMatches.length; i++) {
+    if (
+      filterMatches[i].score.winner == "AWAY_TEAM" &&
+      filterMatches[i].homeTeam.name ==
+        document.getElementById("inputEquipos").value
+    ) {
+      perdidosMatches.push(filterMatches[i]);
+    } else if (
+      filterMatches[i].score.winner == "HOME_TEAM" &&
+      filterMatches[i].awayTeam.name ==
+        document.getElementById("inputEquipos").value
+    ) {
+      perdidosMatches.push(filterMatches[i]);
+    }
+  }
+  console.log(perdidosMatches);
+  creacionTabla(perdidosMatches);
+}
+function filtroProximos(filterMatches) {
+  let proximosMatches = [];
+  for (let i = 0; i < filterMatches.length; i++) {
+    if (filterMatches[i].status !== "FINISHED") {
+      proximosMatches.push(filterMatches[i]);
+    }
+  }
+  creacionTabla(proximosMatches);
+}
+
+
+let api = "2b079ae1015a4bfa963e25658fd610e9";
+let url = "https://api.football-data.org/v2/competitions/2014/matches";
+
+fetch(url, {
+  method: "GET",
+  headers: {
+    "X-Auth-Token": api,
+  },
+})
+  .then(function (response) {
+    if (response.ok) { //si todo va bien..
+      return response.json(); //responde con los datos
+    }
+   // throw new Error("fallo en el server")
+
+  })
+  .then(function (data) { //los recibimos como data
+//console.log(data) //aquí están los matches actualizados.
+init(data);
+
+  })
+  .catch(function (err){
+     // console.error(err);     //si hay un error, se muestra aquí.
+  });
+
+  function init(data){
+    creacionTabla(data.matches)
+
+    //aquí meter todos los parámetros que hagan falta.
+  }
+  //function creacionTabla(partidos) recibiría la información para contigunar. (minuto 51 del vídeo)
+
+
 
 /*
-condicional mal hecha
-if (document.getElementById("radioEmpatados")("checked")){
-  filterMatches.push (arrayMatches[i].winner.DRAW)
-
-}
-----------------------------------------------------
-dividir resultados
-if (document.getElementById("radioEmpatados").checked == true){
-  filtroEmpatados(filterMatches);{
-  
-  }
-}else if  (document.getElementById("radioTodos").checked == true){
-  creacionTabla(filterMatches);
-}
-if (document.getElementById("radioGanados").checked == true){
-  filtroEmpatados(filterMatches);{
-  
-  }
-}else if  (document.getElementById("radioPerdidos").checked == true){
-  filtroEmpatados(filterMatches);
-}
---------------------------------------------------
--
-
-
-
-
-function buscarPartidos() {
-  document.getElementById("tbody").innerHTML = ("");
-  for (let i = 0; i < dataPartidos.matches.length; i++) {
-    if ((dataPartidos.matches[i].awayTeam.name ==
-        document.getElementById("inputEquipos").selectedIndex) ||
-      (dataPartidos.matches[i].homeTeam.name ==
-        document.getElementById("inputEquipos").selectedIndex));
-      }
-    }
-    
-
-
-document.getElementById("boton_buscar").onclick = function () {
-  document.getElementById("tbody").innerHTML = buscarPartidos();
-}
-
-
-
-function botonEquipo(){
-
-let input_equipo = document.getElementById("inputEquipo");
-input_equipo.addEventListener(input_equipo) function () {
-  let input_busqueda = input_1.value;
-
-
-})
-
-}
-botonEquipo();
----------------
-  let primerValor = parseFloat(input_1.value);
-  let segundoValor = parseFloat(input_2.value);
-  let resultadoSuma = primerValor + segundoValor;
-
-
-
-  document.getElementById("result").innerHTML = resultadoSuma;
-
-
 
 */
