@@ -1,3 +1,30 @@
+
+let api = "2b079ae1015a4bfa963e25658fd610e9";
+let url = "https://api.football-data.org/v2/competitions/2014/matches";
+
+fetch(url, {
+  method: "GET",
+  headers: {
+    "X-Auth-Token": api,
+  },
+})
+  .then(function (response) {
+    if (response.ok) {
+
+      return response.json(); 
+    }
+    // throw new Error("fallo en el server")
+  })
+  .then(function (data) {
+    init(data);
+  })
+  .catch(function (err) {
+    // console.error(err);     
+  });
+  function init(data) {
+    stats(data.matches)
+  }
+
 function stats(partidos) {
   let arrEquipos = [];
   for (let i = 0; i < partidos.length; i++) {
@@ -49,21 +76,21 @@ function stats(partidos) {
       equipoV.partidos++;
       equipoV.golesContraV += partidos[i].score.fullTime.homeTeam;
     }
+ 
   }
   for (let j = 0; j < arrEquipos.length; j++) {
     arrEquipos[j].avg = arrEquipos[j].goles / arrEquipos[j].partidos;
   }
 
-
   tablaAvg(arrEquipos);
-  crearTablaAvg(arrEquipos);
+  //crearTablaAvg(arrEquipos);
   tablaGoles(arrEquipos);
-  crearTablaGoles(arrEquipos);
+  //crearTablaGoles(arrEquipos);
+  console.log(arrEquipos)
 }
-stats(dataPartidos.matches);
 
-function tablaAvg(arrEquipos2) {
-  arrEquipos2.sort(function (b, a) {
+function tablaAvg(equiposAVG) {
+ equiposAVG.sort(function (b, a) {
     if (a.avg > b.avg) {
       return 1;
     }
@@ -72,16 +99,14 @@ function tablaAvg(arrEquipos2) {
     }
     return 0;
   });
+ crearTablaAvg(equiposAVG);
 }
 
-function crearTablaAvg(arrEquipos3) {
-  let tbody = document.getElementById("tbody");
+function crearTablaAvg(equiposAVG) {
 
   for (let i = 0; i < 5; i++) {
-    let logoLocal = document.createElement("img");
-    // logoLocal.src =dataClasificacion.standings[0].table[i].team.crestUrl;
     let logosLocal =
-      "https://crests.football-data.org/" + arrEquipos3[i].id + ".svg";
+      "https://crests.football-data.org/" + equiposAVG[i].id + ".svg";
 
     let row = document.createElement("tr");
     let crestLocal = document.createElement("img");
@@ -97,15 +122,16 @@ function crearTablaAvg(arrEquipos3) {
     crestLocal.src = logosLocal;
 
     banderaLocal.innerHTML = crestLocal;
-    equipo.innerHTML = arrEquipos3[i].nombre;
-    goles.innerHTML = arrEquipos3[i].goles;
-    encuentros.innerHTML = arrEquipos3[i].partidos;
-    golaverage.innerHTML = arrEquipos3[i].avg.toFixed(2);
+    equipo.innerHTML = equiposAVG[i].nombre;
+    goles.innerHTML = equiposAVG[i].goles;
+    encuentros.innerHTML = equiposAVG[i].partidos;
+    golaverage.innerHTML = equiposAVG[i].avg.toFixed(2);
   }
 }
 
-function tablaGoles(arrEquipos4) {
-  arrEquipos4.sort(function (a, b) {
+function tablaGoles(golesFuera) {
+
+  golesFuera.sort(function (a, b) {
     if (a.golesContraV > b.golesContraV) {
       return 1;
     }
@@ -114,15 +140,15 @@ function tablaGoles(arrEquipos4) {
     }
     return 0;
   });
+    console.log(golesFuera)
+  crearTablaGoles(golesFuera);
 }
-function crearTablaGoles(arrEquipos5) {
-  let tbody2 = document.getElementById("tbody2");
+function crearTablaGoles(golesFuera) {
 
   for (let i = 0; i < 5; i++) {
-    let logoLocal2 = document.createElement("img");
-    // logoLocal.src =dataClasificacion.standings[0].table[i].team.crestUrl;
+
     let logosLocal2 =
-      "https://crests.football-data.org/" + arrEquipos5[i].id + ".svg";
+      "https://crests.football-data.org/" + golesFuera[i].id + ".svg";
 
     let row2 = document.createElement("tr");
     let crestLocal2 = document.createElement("img");
@@ -138,9 +164,9 @@ function crearTablaGoles(arrEquipos5) {
     crestLocal2.src = logosLocal2;
 
     banderaLocal2.innerHTML = crestLocal2;
-    equipo2.innerHTML = arrEquipos5[i].nombre;
-    goles2.innerHTML = arrEquipos5[i].goles;
-    encuentros2.innerHTML = arrEquipos5[i].partidos;
-    golaverage2.innerHTML = arrEquipos5[i].golesContraV;
+    equipo2.innerHTML = golesFuera[i].nombre;
+    goles2.innerHTML = golesFuera[i].goles;
+    encuentros2.innerHTML = golesFuera[i].partidos;
+    golaverage2.innerHTML = golesFuera[i].golesContraV;
   }
 }
