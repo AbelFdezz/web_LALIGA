@@ -10,7 +10,7 @@ fetch(url, {
 })
   .then(function (response) {
     if (response.ok) {
-
+      spinner();
       return response.json(); 
     }
     // throw new Error("fallo en el server")
@@ -24,6 +24,12 @@ fetch(url, {
   function init(data) {
     stats(data.matches)
   }
+
+  
+  function spinner() {
+  document.getElementById('spinner')
+          .style.display = 'none';
+} 
 
 function stats(partidos) {
   let arrEquipos = [];
@@ -83,10 +89,7 @@ function stats(partidos) {
   }
 
   tablaAvg(arrEquipos);
-  //crearTablaAvg(arrEquipos);
   tablaGoles(arrEquipos);
-  //crearTablaGoles(arrEquipos);
-  console.log(arrEquipos)
 }
 
 function tablaAvg(equiposAVG) {
@@ -120,7 +123,6 @@ function crearTablaAvg(equiposAVG) {
     row.append(crestLocal, equipo, goles, encuentros, golaverage);
 
     crestLocal.src = logosLocal;
-
     banderaLocal.innerHTML = crestLocal;
     equipo.innerHTML = equiposAVG[i].nombre;
     goles.innerHTML = equiposAVG[i].goles;
@@ -140,13 +142,10 @@ function tablaGoles(golesFuera) {
     }
     return 0;
   });
-    console.log(golesFuera)
   crearTablaGoles(golesFuera);
 }
 function crearTablaGoles(golesFuera) {
-
   for (let i = 0; i < 5; i++) {
-
     let logosLocal2 =
       "https://crests.football-data.org/" + golesFuera[i].id + ".svg";
 
@@ -155,18 +154,17 @@ function crearTablaGoles(golesFuera) {
     let equipo2 = document.createElement("td");
     let banderaLocal2 = document.createElement("td");
     let goles2 = document.createElement("td");
-    let encuentros2 = document.createElement("td");
+
     let golaverage2 = document.createElement("td");
 
     tbody2.append(row2);
-    row2.append(crestLocal2, equipo2, goles2, encuentros2, golaverage2);
+    row2.append(crestLocal2, equipo2, goles2, golaverage2);
 
     crestLocal2.src = logosLocal2;
-
     banderaLocal2.innerHTML = crestLocal2;
     equipo2.innerHTML = golesFuera[i].nombre;
     goles2.innerHTML = golesFuera[i].goles;
-    encuentros2.innerHTML = golesFuera[i].partidos;
+
     golaverage2.innerHTML = golesFuera[i].golesContraV;
   }
 }

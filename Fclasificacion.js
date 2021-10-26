@@ -9,21 +9,22 @@ fetch(url, {
 })
   .then(function (response) {
     if (response.ok) {
-      //si todo va bien..
-      return response.json(); //responde con los datos
+      spinner();
+      return response.json();
     }
-    throw new Error("fallo en el server")
+    throw new Error("fallo en el server");
   })
   .then(function (data) {
     init(data);
   })
-  .catch(function (err) {
-    // console.error(err);     //si hay un error, se muestra aquí.
-  });
+  .catch(function (err) {});
 
 function init(data) {
   tableRanking(data.standings[0].table);
-console.log(data.standings[0].table)
+}
+
+function spinner() {
+  document.getElementById("spinner").style.display = "none";
 }
 
 function tableRanking(rank) {
@@ -31,11 +32,11 @@ function tableRanking(rank) {
 
   for (let i = 0; i < rank.length; i++) {
     let imagen = document.createElement("img");
-    imagen.src =rank[i].team.crestUrl;
-    
+    imagen.src = rank[i].team.crestUrl;
+
     let arr = new Array(
       rank[i].position,
-    imagen,
+      imagen,
       rank[i].team.name,
       rank[i].playedGames,
       rank[i].won,
@@ -49,7 +50,6 @@ function tableRanking(rank) {
     let row = document.createElement("tr");
 
     for (let j = 0; j < arr.length; j++) {
-       
       let celdas = document.createElement("td");
       row.append(celdas);
       tbody.append(row);

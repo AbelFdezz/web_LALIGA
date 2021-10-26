@@ -10,8 +10,7 @@ fetch(url, {
   .then(function (response) {
     if (response.ok) {
 spinner();
-      //si todo va bien..
-      return response.json(); //responde con los datos
+      return response.json(); 
     }
     // throw new Error("fallo en el server")
   })
@@ -31,15 +30,14 @@ function init(data) {
     .addEventListener("click", function () {
       filtroEquipos(data.matches);
     });
-
-  //aquí meter todos los parámetros que hagan falta.
 }
+
 function spinner() {
   document.getElementById('spinner')
           .style.display = 'none';
 } 
 
-function creacionTabla(partidos) {
+function creacionTabla(partidos) {   //creación dinámica de la tabla
   let tbody = document.getElementById("tbody");
   tbody.innerHTML = "";
   if (partidos.length == 0) {
@@ -74,7 +72,6 @@ function creacionTabla(partidos) {
       }
       crestLocal.src = logosLocal;
       crestVisitante.src = logosVisitante;
-
       equipoLocal.innerHTML = partidos[i].homeTeam.name;
       equipoVisitante.innerHTML = partidos[i].awayTeam.name;
       resultado.innerHTML = marcador;
@@ -84,7 +81,7 @@ function creacionTabla(partidos) {
   }
 }
 
-function arrSelect(data) {
+function arrSelect(data) { //creación del select de equipos
   let arrayMatches = data;
   let arrListaEquipos = arrayMatches.map(function (equipo, index) {
     return equipo.homeTeam.name;
@@ -97,8 +94,8 @@ function arrSelect(data) {
     optionEquipo.innerHTML = setEquipos[l];
   }
 }
-//función filtro principal
-function filtroEquipos(arrayMatches) {
+
+function filtroEquipos(arrayMatches) { //función filtro principal, por equipos
   let filterMatches = [];
   for (let i = 0; i < arrayMatches.length; i++) {
     if (
@@ -111,6 +108,7 @@ function filtroEquipos(arrayMatches) {
     }
   }
 
+  //bifurcación de datos según el botón pulsado.
   if (document.getElementById("radioEmpatados").checked == true) {
     filtroEmpatados(filterMatches);
     return;
