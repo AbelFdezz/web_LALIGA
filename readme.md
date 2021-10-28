@@ -1,5 +1,7 @@
 # Web de estadísticas de /aLiga
 
+https://competent-ride-9142cc.netlify.app/home.html
+
 ## Segundo entregable del bootcamp de Let's Coder
 
 ## EPIC 1
