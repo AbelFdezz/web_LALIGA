@@ -1,6 +1,21 @@
+#inputEquipos{
+    width: 80%;
+    background-color:#6c757d;
+}
+
 #boton_buscar{
     flex-flow: row;
-    justify-content: center;
+    justify-items: center;
+    width: 55%;
+    margin-bottom: 1px;
+    background-color:#6c757d;
+}
+#boton_reset{
+    flex-flow: row;
+    justify-items: center;
+    width: 55%;
+    margin-bottom: 5px;
+    background-color:#6c757d;
 }
 
 tbody img{
@@ -60,7 +75,6 @@ tbody img{
 }
 p{
     font-size: 16px;
-  
 }
 
 
@@ -92,6 +106,8 @@ tbody img{
 .carousel-inner{
     height: 150px;
 }
-
+p{
+    font-size: 12px;
+}
 
 }

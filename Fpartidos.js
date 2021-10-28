@@ -9,16 +9,17 @@ fetch(url, {
 })
   .then(function (response) {
     if (response.ok) {
-spinner();
+
       return response.json(); 
     }
-    // throw new Error("fallo en el server")
+
   })
   .then(function (data) {
+    spinner();
     init(data);
   })
   .catch(function (err) {
-    // console.error(err);     //si hay un error, se muestra aquí.
+ // alerta aquí
   });
 
 function init(data) {
@@ -30,6 +31,11 @@ function init(data) {
     .addEventListener("click", function () {
       filtroEquipos(data.matches);
     });
+    document
+    .getElementById("boton_reset")
+    .addEventListener("click", function () {
+      creacionTabla(data.matches);
+    });
 }
 
 function spinner() {
@@ -37,11 +43,12 @@ function spinner() {
           .style.display = 'none';
 } 
 
-function creacionTabla(partidos) {   //creación dinámica de la tabla
+function creacionTabla(partidos) {   
   let tbody = document.getElementById("tbody");
   tbody.innerHTML = "";
   if (partidos.length == 0) {
-    tbody.innerHTML = "<p>No hay partidos relacionados.</p>";
+    tbody.innerHTML = `<tr>
+    <td colspan="5">No hay partidos relacionados</td></tr>`;
   } else {
     for (let i = 0; i < partidos.length; i++) {
       let logosVisitante =
@@ -81,7 +88,7 @@ function creacionTabla(partidos) {   //creación dinámica de la tabla
   }
 }
 
-function arrSelect(data) { //creación del select de equipos
+function arrSelect(data) { 
   let arrayMatches = data;
   let arrListaEquipos = arrayMatches.map(function (equipo, index) {
     return equipo.homeTeam.name;
@@ -95,7 +102,7 @@ function arrSelect(data) { //creación del select de equipos
   }
 }
 
-function filtroEquipos(arrayMatches) { //función filtro principal, por equipos
+function filtroEquipos(arrayMatches) { 
   let filterMatches = [];
   for (let i = 0; i < arrayMatches.length; i++) {
     if (
@@ -107,8 +114,7 @@ function filtroEquipos(arrayMatches) { //función filtro principal, por equipos
       filterMatches.push(arrayMatches[i]);
     }
   }
-
-  //bifurcación de datos según el botón pulsado.
+  
   if (document.getElementById("radioEmpatados").checked == true) {
     filtroEmpatados(filterMatches);
     return;
@@ -178,6 +184,7 @@ function filtroPerdidos(filterMatches) {
 
   creacionTabla(perdidosMatches);
 }
+
 function filtroProximos(filterMatches) {
   let proximosMatches = [];
   for (let i = 0; i < filterMatches.length; i++) {
