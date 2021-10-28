@@ -43,9 +43,11 @@
 
         <div class="selectt d-flex  justify-content-center mb-2 p-1">
             <select name="inputEquipos" id="inputEquipos">
+                <option class="elige text-center">-- Elige  un equipo --</option>
             </select>
+
         </div>
-        <div class="inputss  d-flex text-light justify-content-center">
+        <div class="inputss  d-flex justify-content-center  text-light ">
             <div class="inputsradio row text-light justify-content-center text-center">
                 <input type="radio" id="radioTodos" name="partidos" value="todos" checked>
                 <label for="todos">Todos</label>
@@ -60,34 +62,31 @@
                 <input type="radio" id="radioPerdidos" name="partidos" value="perdido">
                 <label for="perdidos">Perdidos</label>
             </div>
-            <div class="inputsradio row text-light justify-content-center text-center">
+            <div class="inputsradio row text-light  justify-content-center text-center">
                 <input type="radio" id="radioProximos" name="partidos" value="próximos">
                 <label for="proximos">Próximos</label>
                 <button id="boton_buscar">Buscar</button>
-
+                <button id="boton_reset">Reset</button>
             </div>
         </div>
- 
-    <div class="table table-dark row d-flex justify-content-center border border-secondary">
-        <table>
-            <thead>
-                <tr>
-                    <th></th>
-                    <th class="th">Local</th>
-                   
-                    <th></th>
-                    <th></th>
-                    <th class="th">Visitante</th>
-                </tr>
-            </thead>
-            <tbody id="tbody">
-                <div class="spinner-border  m-3" role="status" id="spinner">
-                    <span class="sr-only"></span>
-                </div>
-            </tbody>
-        </table>
-    </div>
-    <div class="errorBusqueda text-center"></div>
+
+        <div class="table table-dark row d-flex justify-content-center border border-secondary">
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="3">Local</th>
+                        <th colspan="2">Visitante</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                    <div class="spinner-border  m-3" role="status" id="spinner">
+                        <span class="sr-only"></span>
+                    </div>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="errorBusqueda "></div>
     </div>
     <script src="./Fpartidos.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

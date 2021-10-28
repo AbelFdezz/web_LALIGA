@@ -9,12 +9,13 @@ fetch(url, {
 })
   .then(function (response) {
     if (response.ok) {
-      spinner();
+
       return response.json();
     }
     throw new Error("fallo en el server");
   })
   .then(function (data) {
+    spinner();
     init(data);
   })
   .catch(function (err) {});
